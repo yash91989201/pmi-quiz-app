@@ -5,12 +5,7 @@ import { env } from "@/env";
 // SCHEMAS
 import * as schema from "./schema";
 
-const poolConnection = mysql.createPool({
-  host: env.DATABASE_HOST,
-  user: env.DATABASE_USER,
-  password: env.DATABASE_PASSWORD,
-  database: env.DATABASE_NAME,
-});
+const poolConnection = mysql.createPool(env.DATABASE_URL);
 
 export const db = drizzle(poolConnection, {
   schema,
