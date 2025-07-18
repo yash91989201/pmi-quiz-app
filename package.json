@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "db:push": "drizzle-kit push:mysql",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "db:migrate": "drizzle-kit generate:mysql",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start"
