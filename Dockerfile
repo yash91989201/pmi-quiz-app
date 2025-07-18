@@ -40,13 +40,8 @@ WORKDIR /app
 # Set production environment
 ENV NODE_ENV=production
 
-# Copy built application from builder stage
-COPY --from=builder /app/.next/standalone/ .
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/static ./.next/static
-
 # Expose the port the app runs on
 EXPOSE 3000
 
 # Start the application
-CMD ["node", "server.js"]
+CMD ["npm","run","start"]
