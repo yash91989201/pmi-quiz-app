@@ -7,7 +7,7 @@ WORKDIR /app
 RUN bun install drizzle-kit@latest @t3-oss/env-nextjs@latest zod@latest drizzle-orm@latest mysql2@latest
 
 # Copy only necessary files for migration
-COPY ./src/server/db/migrations ./src/server/db/migrations
+COPY ./drizzle ./drizzle
 COPY ./drizzle.config.ts .
 
 # Set the entrypoint
