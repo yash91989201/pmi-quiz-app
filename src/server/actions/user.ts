@@ -441,14 +441,12 @@ export async function signUp(
       role: numberOfAdmins === 0 ? "ADMIN" : "USER",
     });
 
-    const verificationToken = await generateVerificationToken(email);
-
-    await sendVerificationEmail({
-      userName: name,
-      email: verificationToken.email,
-      token: verificationToken.token,
-      subject: "Confirm your SignUp.",
-    });
+    // await sendVerificationEmail({
+    //   userName: name,
+    //   email: verificationToken.email,
+    //   token: verificationToken.token,
+    //   subject: "Confirm your SignUp.",
+    // });
 
     if (createNewUser[0].affectedRows === 1) {
       return {

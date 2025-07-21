@@ -37,7 +37,7 @@ export const quizzes = mysqlTable("quizzes", {
   quizId: varchar("quizId", { length: 32 })
     .primaryKey()
     .$defaultFn(() => createId()),
-  quizTitle: text("quizTitle").notNull(),
+  quizTitle: varchar("quizTitle", { length: 512 }).notNull(),
   totalMark: smallint("totalMark").notNull(),
 });
 
