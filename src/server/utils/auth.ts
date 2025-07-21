@@ -10,7 +10,7 @@ import { getTwoFactorConfirmationByUserId } from "@/server/utils/token";
 // TYPES
 import type { DefaultSession } from "next-auth";
 // CONSTANTS
-import { authConfig } from "@/config/auth.config";
+import { authConfig } from "@/config/auth-config";
 import { DUMMY_EMAIL_PREFIX } from "@/config/constants";
 
 declare module "next-auth" {

@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 // UTILS
-import { authConfig } from "@/config/auth.config";
+import { authConfig } from "@/config/auth-config";
 // CONSTANTS
 import { apiAuthPrefix, authRoutes, publicRoutes } from "@/config/routes";
 
