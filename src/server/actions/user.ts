@@ -447,6 +447,7 @@ export async function signUp(
     //   token: verificationToken.token,
     //   subject: "Confirm your SignUp.",
     // });
+    console.log(verificationTokens.token);
 
     if (createNewUser[0].affectedRows === 1) {
       return {
