@@ -440,12 +440,13 @@ export async function signUp(
     });
 
     const verificationToken = await generateVerificationToken(email);
-    await sendVerificationEmail({
-      userName: name,
-      email: verificationToken.email,
-      token: verificationToken.token,
-      subject: "Confirm your SignUp.",
-    });
+    // await sendVerificationEmail({
+    //   userName: name,
+    //   email: verificationToken.email,
+    //   token: verificationToken.token,
+    //   subject: "Confirm your SignUp.",
+    // });
+    console.log(verificationToken.token);
 
     if (createNewUser[0].affectedRows === 1) {
       return {
