@@ -1,18 +1,18 @@
-# Stage 1: Build Stage
-FROM node:22-alpine AS builder
+# Stage 1: Base image
+FROM node:22-alpine AS base
 
+# Stage 2: Builder
+FROM base AS builder
 WORKDIR /app
 
-# Copy package files
-COPY package.json package-lock.json ./
-
-# Install dependencies
+COPY package.json package-lock.json* ./
 RUN npm ci
 
-# Copy the rest of the application
 COPY . .
 
-# Set build-time environment variables
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+
 ARG DATABASE_URL
 ARG NEXTAUTH_SECRET
 ARG NEXTAUTH_URL
@@ -26,22 +26,30 @@ ENV NEXTAUTH_URL=${NEXTAUTH_URL}
 ENV SMTP_HOST=${SMTP_HOST}
 ENV SMTP_USER=${SMTP_USER}
 ENV SMTP_PASSWORD=${SMTP_PASSWORD}
-ENV NODE_ENV=production
-ENV SKIP_ENV_VALIDATION=true
 
-# Build the application
 RUN npm run build
 
-# Stage 2: Production Stage
-FROM node:22-alpine AS runner
+# Stage 3: Runner
+FROM base AS runner
 
 WORKDIR /app
 
-# Set production environment
+ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Security: create non-root user
+RUN addgroup --system --gid 1001 nodejs \
+  && adduser --system --uid 1001 nextjs
 
-# Start the application
-CMD ["npm","run","start"]
+COPY --from=builder /app/public ./public
+RUN mkdir .next \
+  && chown nextjs:nodejs .next
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+ENV PORT=3000
+
+CMD ["node", "server.js"]
