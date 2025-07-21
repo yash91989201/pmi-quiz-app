@@ -105,12 +105,14 @@ export async function adminLogin(
       existingUser.email,
     );
 
-    await sendVerificationEmail({
-      email: verificationToken.email,
-      token: verificationToken.token,
-      subject: "Verify your Email.",
-      userName: existingUser.name,
-    });
+    // await sendVerificationEmail({
+    //   email: verificationToken.email,
+    //   token: verificationToken.token,
+    //   subject: "Verify your Email.",
+    //   userName: existingUser.name,
+    // });
+
+    console.log(verificationToken.token);
 
     return {
       status: "SUCCESS",
@@ -440,13 +442,13 @@ export async function signUp(
     });
 
     const verificationToken = await generateVerificationToken(email);
-    // await sendVerificationEmail({
-    //   userName: name,
-    //   email: verificationToken.email,
-    //   token: verificationToken.token,
-    //   subject: "Confirm your SignUp.",
-    // });
-    console.log(verificationToken.token);
+
+    await sendVerificationEmail({
+      userName: name,
+      email: verificationToken.email,
+      token: verificationToken.token,
+      subject: "Confirm your SignUp.",
+    });
 
     if (createNewUser[0].affectedRows === 1) {
       return {
