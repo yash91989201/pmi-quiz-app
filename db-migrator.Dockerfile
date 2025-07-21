@@ -11,4 +11,4 @@ COPY ./drizzle ./drizzle
 COPY ./drizzle.config.ts .
 
 # Set the entrypoint
-ENTRYPOINT ["bunx", "--bun", "drizzle-kit", "migrate", "--config", "drizzle.config.ts"]
+ENTRYPOINT ["bunx", "--bun", "drizzle-kit", "push:mysql", "--config", "drizzle.config.ts"]
