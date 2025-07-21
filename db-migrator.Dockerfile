@@ -8,7 +8,8 @@ RUN bun install drizzle-kit@0.20.13 @t3-oss/env-nextjs@0.7.1 zod@3.22.4 drizzle-
 
 # Copy only necessary files for migration
 COPY ./drizzle ./drizzle
-COPY ./drizzle.config.ts .
+COPY ./drizzle.config.ts ./drizzle.config.ts
+COPY ./src/server/db/schema.ts ./server/db/schema.ts
 
 # Set the entrypoint
 ENTRYPOINT ["bunx", "--bun", "drizzle-kit", "push:mysql", "--config", "drizzle.config.ts"]
