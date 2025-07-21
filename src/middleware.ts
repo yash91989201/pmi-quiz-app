@@ -1,9 +1,11 @@
-import { NextResponse, NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 // CONSTANTS
 import { apiAuthPrefix, authRoutes, publicRoutes } from "@/config/routes";
 
 export function middleware(req: NextRequest) {
   const nextUrl = req.nextUrl;
+  console.log(req.cookies);
   const sessionToken = req.cookies.get("session-token")?.value;
   const isLoggedIn = !!sessionToken;
 
