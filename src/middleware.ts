@@ -3,10 +3,10 @@ import { NextResponse } from "next/server";
 // CONSTANTS
 import { apiAuthPrefix, authRoutes, publicRoutes } from "@/config/routes";
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const nextUrl = req.nextUrl;
-  console.log(req.cookies);
-  const sessionToken = req.cookies.get("session-token")?.value;
+  const sessionToken = req.cookies.get("__Secure-authjs.session-token")?.value;
+
   const isLoggedIn = !!sessionToken;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
